@@ -1,0 +1,61 @@
+git clone 我给的密钥
+（记住git clone 一次就够了，以后就不用git clone 了，再clone的话会出现无法提交的情况）
+（要是git clone 了多次，就把克隆出来的文件拉出来再提交文件，很麻烦的）
+
+每次提交的操作流程：
+本机：先将你需要提交的文件复制粘贴到仓库里，或者直接拖进去都行
+本机：然后git add .或者git add 文件名
+接着：git commit -m "备注"（备注尽量用英文，还有简要更改内容）
+git push -u origin master
+{
+    如果别人提交了更改或者在远程仓库上更改，需要git pull --rebase origin master(意为拉取远程仓库文件更新自己的版本）(更新版本，使本地版本对上远程仓库的版本）（否则无法push)
+    ！！rebase后记得git --continue(否则会显示未处理冲突）
+    要是出现了fatal，（不能push的情况）
+    有可能是本地windows 凭据的密码和远程仓库的密码不一致
+    需要删除凭据然后重新git clone 更改密码使其一致
+} 以上为push失败原因（lzh个人总结）
+{
+场景描述
+通常我们在日常开发时一般使用记住git密码功能，但是如果密码输入错误了就不会再弹出输入密码框了。
+
+ git add . ; git commit -m ‘laoji.org ‘ ; git push
+On branch master
+Your branch is ahead of ‘origin/master’ by 1 commit.
+(use “git push” to publish your local commits)
+nothing to commit, working tree clean
+remote: Coding 提示: Authentication failed.
+remote: 认证失败，请确认您输入了正确的账号密码。
+ 
+
+配置用户信息
+git config --global user.name [username]
+git config --global user.email [email]
+查询用户信息
+git config --list
+如果push遇到在输入密码是熟错后，就会报这个错误fatal: Authentication failed for
+
+解决办法（ 请使用管理员运行 ）
+git config --system --unset credential.helper
+之后你在push就会提示输入名称和密码
+
+如不使用管理员运行可能会出现如下错误：
+
+ error: could not lock config file C:/Program Files/Git/mingw64/etc/gitconfig: Permission denied
+} --摘自CSDN--跟着阿笨一起玩NET(勿外传）
+ 
+要是自己新建仓库的话：
+分两步：
+首先在GitHub或者腾讯工蜂上创建仓库
+然后再本地新建仓库，git init
+使用以下两条指令：
+git config --global user.name [yourname]
+git config --global user.email [youremail]
+完成注册
+注册之后使用下列命令：
+git remote add <yourname> <url(此处为仓库的HTTP)>
+
+之后就是正常工作了
+eg. 
+git push <yourname>
+
+--by lzh
